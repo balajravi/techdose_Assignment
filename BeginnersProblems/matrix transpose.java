@@ -11,8 +11,8 @@ public class Main
             mat[i][j]=sc.nextInt();
         }
     }
-    for(int i=0;i<row;i++){
-        for(int j=0;j<col;j++){
+    for(int i=0;i<col;i++){
+        for(int j=0;j<row;j++){
             System.out.print(mat[j][i]+" ");
         }
         System.out.println();
