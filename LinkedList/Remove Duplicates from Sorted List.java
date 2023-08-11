@@ -9,7 +9,6 @@ class Solution {
         {
             if(itr.next.val==itr.next.next.val)
             {
-                int var=itr.next.val;
                 itr.next=itr.next.next;
             }
             else
