@@ -1,53 +1,53 @@
-package Arrays.HomeWork;
-
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class CountingInversions {
+public class InversionCount {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        for(int i=0;i<n;i++)
-            arr[i] = sc.nextInt();
-        System.out.println(countInversions(arr));
-        System.out.println(Arrays.toString(arr));
+        int[] arr = {3, 1, 2, 4, 5};
+        int inversionCount = countInversions(arr);
+        System.out.println("Number of inversions: " + inversionCount);
     }
-    static int countInversions(int[] nums){
-        return sort(nums,0,nums.length-1);
-    }
-    static int sort(int[] arr,int lo,int hi){
-        int sum = 0;
-       // System.out.println(Arrays.toString(arr));
-        if(lo<hi){
-            int mid = (lo+hi)>>1;
-            sum+= sort(arr,lo,mid);
-            sum+= sort(arr,mid+1,hi);
-            //System.out.println(Arrays.toString(arr));
-            sum+= merge(arr,lo,mid,hi);
-        }
 
-        //System.out.printf("lo=%d hi=%d sum=%d\n",lo,hi,sum);
-        return sum;
+    public static int countInversions(int[] arr) {
+        int[] temp = new int[arr.length];
+        return mergeSortAndCount(arr, temp, 0, arr.length - 1);
     }
-    static int merge(int[] arr,int lo,int mid,int hi){
-        int[] newArr = new int[hi+1];
-        int i=lo,j=mid+1,k=lo, inversions = 0;
-        while(i<=mid && j<=hi){
-            if(arr[i]<=arr[j])
-                newArr[k++] = arr[i++];
-            else{
-                newArr[k++] = arr[j++];
-                inversions+= (mid+1)-i;// length - i pointer
+
+    private static int mergeSortAndCount(int[] arr, int[] temp, int left, int right) {
+        int inversionCount = 0;
+        if (left < right) {
+            int mid = (left + right) / 2;
+            inversionCount += mergeSortAndCount(arr, temp, left, mid);
+            inversionCount += mergeSortAndCount(arr, temp, mid + 1, right);
+            inversionCount += mergeAndCount(arr, temp, left, mid, right);
+        }
+        return inversionCount;
+    }
+
+    private static int mergeAndCount(int[] arr, int[] temp, int left, int mid, int right) {
+        int i = left;
+        int j = mid + 1;
+        int k = left;
+        int inversionCount = 0;
+
+        while (i <= mid && j <= right) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+                inversionCount += (mid - i + 1);
             }
         }
-        while(i<=mid) newArr[k++] = arr[i++];
-        while(j<=hi){
-            newArr[k++] = arr[j++];
+
+        while (i <= mid) {
+            temp[k++] = arr[i++];
         }
-        for(int index=lo;index<=hi;index++){
-            arr[index]= newArr[index];
+
+        while (j <= right) {
+            temp[k++] = arr[j++];
         }
-        return inversions;
+
+        for (i = left; i <= right; i++) {
+            arr[i] = temp[i];
+        }
+
+        return inversionCount;
     }
 }
