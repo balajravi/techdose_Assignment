@@ -1,3 +1,7 @@
+// Time complexity: O(n^2 logn) // where n is the size of array
+// Sorting takes O(nlogn) time and loop takes O(n^2) time, So the overall time complexity is O(nlogn + n^2 logn) - O(n^2 logn)
+// Space complexity: O(n) // for taking hashset.
+    
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> list = new ArrayList<>();
