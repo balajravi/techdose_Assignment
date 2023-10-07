@@ -9,6 +9,15 @@ public class Main
 	System.out.println(getPower(base,power));   
 	}
 	public static long getPower(long base,long power){
+	   // if(power<=0){
+	   //     return 1;
+	   // }
+	   //while(power-1>0){
+	   //    res = res * base;
+	   //    power--;
+	   //}
+	   //return res;
+		
 	    long res=1;
 	    while(power>0){
 	        if(power%2==1){
