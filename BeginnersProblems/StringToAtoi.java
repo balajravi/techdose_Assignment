@@ -1,16 +1,10 @@
 class Solution {
-    public int myAtoi(String s) {
+    public int myAtoi(String str) {
         int index = 0, sign = 1, total = 0;
-        String str = s;
-        s = s.replaceAll("\\s", "");
-        //System.out.println(s);
-        if(s.length() == 0){
+        str = str.trim();
+        if(str.length() == 0){
             return 0;
         }
-        while(str.charAt(index) == ' ' && index < str.length()){
-            index++;
-        }
-
         if(str.charAt(index) == '+' || str.charAt(index) == '-'){
             sign = str.charAt(index) == '+' ? 1 : -1;
             index++;
