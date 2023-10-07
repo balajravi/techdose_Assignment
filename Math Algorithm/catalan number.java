@@ -17,3 +17,4 @@ class catalan{
 		return dp[N][R];
 	}
 }
+Formula to find catalan number : (2n)! / ((n + 1)! n!)
