@@ -1,18 +1,24 @@
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
-        int n=matrix.length;
-        int[] arr = new int[n*n];
-        int index=0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                arr[index++]=matrix[i][j];
+        int m = matrix.length, n = matrix[0].length;
+        int low = matrix[0][0], high = matrix[m - 1][n - 1];
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            int count = 0; 
+            int j = n - 1;
+            for (int i = 0; i < m; i++) {
+                while (j >= 0 && matrix[i][j] > mid)
+                    j--;
+                count += j + 1;
             }
+            if (count < k)
+                low = mid + 1;
+            else
+                high = mid;
         }
-        Arrays.sort(arr);
-        return arr[k-1];
+        return low;
     }
 }
-
 /*
 Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
 
